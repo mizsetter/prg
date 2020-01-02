@@ -125,10 +125,13 @@ class Application(tk.Frame):
     def split_image(self, img_bgr, split_color):
         blue, green, red = cv2.split(img_bgr)
 
+        # 青成分
         if split_color == SPLIT_BLUE:
             return blue
+        # 緑成分
         elif split_color == SPLIT_GREEN:
             return green
+        # 赤成分
         else:
             return red
     # 青成分
