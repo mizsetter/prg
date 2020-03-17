@@ -63,6 +63,15 @@ class Application(tk.Frame):
         self.button_split_red = tk.Button(self.frame_split, text = u'赤成分', command = self.btn_split_red)
         self.button_split_red.pack(side = "left")
 
+        # ぼかし処理
+        self.frame_blur = tk.Frame(self.frame_main)
+        self.frame_blur.pack(side = "top", fill = "x")  # 縦詰め、横に広げる
+
+        self.label_blur = tk.Label(self.frame_blur, text = u'ぼかし処理(ブラー：平滑化)：')
+        self.label_blur.pack(side = "left", anchor = "nw")
+        self.button_blur = tk.Button(self.frame_blur, text = u'ブラー', command = self.btn_blur)
+        self.button_blur.pack(side = "left")
+
         # 画像
         self.canvas = tk.Canvas(self.frame_img, height = 600, width = 800, bg = "black")
         self.canvas.pack()
@@ -174,6 +183,19 @@ class Application(tk.Frame):
         # 画像を表示エリアに
         self.show_image(img_tk)
 
+    # ぼかし処理
+    def btn_blur(self):
+        # パスにある画像を読み込む
+        img_bgr = self.read_image()
+
+        # ぼかし処理(ブラー：平滑化)
+        img_blur = cv2.blur(img_bgr, (5, 5))
+
+        # PhotoImageを取得
+        img_tk = self.get_photoimage(img_blur)
+
+        # 画像を表示エリアに
+        self.show_image(img_tk)
 
 root = tk.Tk()
 root.title(u"test")
